@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html ng-app="bopFinder">
+
+<head>
+    <title>Bop Finder</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-animate.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-sanitize.js"></script>
+    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <script src="app.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body ng-controller="MainCtrl">
+    <nav class="navbar navbar-inverse">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="text-uppercase navbar-brand" href="#">Bop Finder</a>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">About</a></li>
+                <li class="dropdown" uib-dropdown on-toggle="toggled(open)">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" uib-dropdown-toggle>
+                        <img ng-src="/flags/{{market.Code.toLowerCase()}}.png" alt="{{market.Name}}" />
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu" uib-dropdown-menu>
+                        <li ng-repeat="c in countries">
+                            <a href="#" ng-click="$parent.market = c">
+                                <img ng-src="/flags/{{c.Code.toLowerCase()}}.png" alt="{{c.Name}}" /> {{c.Code}}
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="text-center">
+        <div class="desc-row">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <div class="app-desc">
+                        <h1>Bop Finder</h1>
+                        <p class="lead">Go beyond the top tracks, and get all the best hits from your next favorite artist's entire discography.</p>
+                    </div>
+                    <form class="form-horizontal">
+                        <div class="col-md-6 col-md-offset-3">
+                            <div class="form-group form-group-lg has-feedback typeahead-input">
+                                <input type="text" class="form-control input-lg" placeholder="Type artist name here..." ng-model="searchSelected" uib-typeahead="artist.name for artist in getArtist($viewValue)" typeahead-on-select="onSelect($item)" typeahead-wait-ms="1000" typeahead-loading="loadingLocations" typeahead-no-results="noResults">
+                                <span class="glyphicon glyphicon-refresh form-control-feedback" aria-hidden="true" ng-show="loadingLocations"></span>
+                                <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" ng-show="noResults"></span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row" ng-show="artist.name.length > 0">
+                <div class="col-md-6 col-md-offset-3">
+                    <a ng-href="{{artist.external_urls.spotify}}">
+                        <h2>{{artist.name}}</h2>
+                    </a>
+                </div>
+            </div>
+            <div class="row" ng-show="artist.images.length > 0">
+                <div class="col-md-6 col-md-offset-3">
+                    <a ng-href="{{artist.external_urls.spotify}}">
+                        <img ng-src="{{artist.images[0].url}}" alt="{{artist.name}}" class="artist-photo" />
+                    </a>
+                </div>
+            </div>
+            <div class="row" ng-show="topTracks.length > 0">
+                <div class="col-md-6 col-md-offset-3">
+                    <button type="button" class="btn btn-spotify">Create A Spotify Playlist!</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <table class="table table-striped track-table">
+                        <tr ng-repeat="track in topTracks | orderBy:'-popularity'">
+                            <td>
+                                <div class="media">
+                                    <div class="media-left">
+                                        <div class="album" ng-style="{'background-image':'url({{track.album.images[2].url}})'}" ng-click="playAudio(track)" ng-mouseover="console.log('meow');">
+                                            <div class="buttons" style="display: block;">
+                                                <span class="glyphicon glyphicon-play" ng-hide="true"></span>
+                                                <span class="glyphicon glyphicon-pause" ng-show="!audio.paused && current_audio == track.id"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="media-body text-left">
+                                        <h4 class="media-heading"> <a ng-href="{{track.external_urls.spotify}}">{{track.name}}</a></h4>
+                                        <span class="album-title"><a ng-href="{{track.album.external_urls.spotify}}">{{track.album.name}}</a></span></div>
+                                </div>
+                </div>
+                </td>
+                </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div id="footer">
+        <div class="container">
+            <small>
+        <p>created by <a href="https://github.com/praisecatgod">yves st. germain</a></p>
+        <p> <a href="mailto:yv.desousa[at]gmail.com">Hire me?</a></p>
+      </small>
+        </div>
+    </div>
+</body>
+
+</html>
