@@ -11,6 +11,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-animate.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-sanitize.js"></script>
+    <script src="bower_components/angular-spotify/src/angular-spotify.js"></script>
     <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.5.0.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     <script src="app.js"></script>
@@ -56,7 +57,7 @@
             </div>
             <div class="row" ng-show="topTracks.length > 0">
                 <div class="col-md-6 col-md-offset-3">
-                    <button type="button" class="btn btn-spotify">Create A Spotify Playlist!</button>
+                    <button type="button" class="btn btn-spotify" ng-click="logIn()">Create A Spotify Playlist!</button>
                 </div>
             </div>
             <div class="row">

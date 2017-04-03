@@ -1,4 +1,11 @@
-var bopFinder = angular.module('bopFinder', ['ngAnimate', 'ngSanitize', 'ui.bootstrap']);
+var bopFinder = angular.module('bopFinder', ['ngAnimate', 'ngSanitize', 'ui.bootstrap', 'spotify']);
+
+bopFinder.config(function(SpotifyProvider)
+{
+    SpotifyProvider.setClientId('c8b41b06c1734f0987f8ee45de21ad32');
+    SpotifyProvider.setRedirectUri('http://localhost:8080/callback.html');
+    SpotifyProvider.setScope('user-read-private playlist-modify playlist-modify-private');
+});
 
 bopFinder
     .directive('bopFinderTrack', function()
@@ -26,12 +33,9 @@ bopFinder
 
 bopFinder
     .controller('MainCtrl', [
-        '$scope', '$http',
-        function($scope, $http)
+        '$scope', '$http', '$window', 'Spotify',
+        function($scope, $http, $window, Spotify)
         {
-
-            var CLIENT_ID = 'c8b41b06c1734f0987f8ee45de21ad32';
-            var REDIRECT_URI = 'http://localhost:8080/callback';
 
             $scope.countries = [];
 
@@ -56,31 +60,66 @@ bopFinder
             $scope.audio = {};
             $scope.current_audio = 0;
 
-            function getLoginURL(scopes)
+            var user = '';
+
+            Spotify.getAlbum('4JiY4JUvXdEA7UFIbiAyor').then(function(response)
             {
-                return 'https://accounts.spotify.com/authorize?client_id=' + CLIENT_ID +
-                    '&redirect_uri=' + encodeURIComponent(REDIRECT_URI) +
-                    '&scope=' + encodeURIComponent(scopes.join(' ')) +
-                    '&response_type=token';
-            }
+                console.log(response.data);
+            });
 
-
-
-            $scope.logIn = function()
+            var createPlaylist = function()
             {
+                var playlistName = "[BOP FINDER] " + $scope.artist.name;
+                Spotify.createPlaylist(user.id,
+                {
+                    name: playlistName
+                }).then(function(response)
+                {
 
-                var url = getLoginURL([
-                    'user-read-email'
-                ]);
+                    Spotify.addPlaylistTracks(user.id, response.data.id, $scope.topTracks.map(function(track)
+                    {
+                        return track.id
+                    })).then(function(response)
+                    {
+                        console.log(response);
+                    });
 
-                var width = 450,
-                    height = 730,
-                    left = (screen.width / 2) - (width / 2),
-                    top = (screen.height / 2) - (height / 2);
+                });
+
 
             };
 
 
+            $scope.logIn = function()
+            {
+                if (user == '' || user == null || user == undefined)
+                {
+                    Spotify.login().then(function()
+                    {
+                        Spotify.setAuthToken($window.localStorage.getItem('spotify-token'));
+                        Spotify.getCurrentUser().then(function(response)
+                        {
+                            user = response.data;
+                            createPlaylist();
+                        });
+                    });
+                }
+                else if ($window.localStorage.getItem('spotify-token') !== null && (user == '' || user == null || user == undefined))
+                {
+                    Spotify.setAuthToken($window.localStorage.getItem('spotify-token'));
+                    Spotify.getCurrentUser().then(function(response)
+                    {
+                        user = response.data;
+                        createPlaylist();
+                    });
+
+                }
+                else
+                {
+                    createPlaylist();
+                }
+
+            };
 
 
             $scope.playAudio = function(track)
@@ -119,7 +158,8 @@ bopFinder
                 $scope.searchSelected = '';
                 $scope.artist = '';
                 $scope.topTracks = [];
-                if($scope.audio.duration > 0 && !$scope.audio.paused){
+                if ($scope.audio.duration > 0 && !$scope.audio.paused)
+                {
                     $scope.audio.pause();
                 }
                 $scope.audio = {};
