@@ -4,8 +4,7 @@ Go beyond the top tracks, and get all the best hits from your next favorite arti
 
 ## TODO
 
-1. OAuth for playlist saving
-2. Look into AngularJS wrappers for the Spotify API?
+2. Spotify API for other functions
 3. Better code organization, refactoring
 4. Testing?
 5. LESS/SASS?
