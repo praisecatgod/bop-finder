@@ -18,28 +18,7 @@
 </head>
 
 <body ng-controller="MainCtrl">
-    <nav class="navbar navbar-inverse">
-        <div class="container">
-            <div class="navbar-header">
-                <a class="text-uppercase navbar-brand" href="#">Bop Finder</a>
-            </div>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">About</a></li>
-                <li class="dropdown" uib-dropdown on-toggle="toggled(open)">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" uib-dropdown-toggle>
-                        <img ng-src="/flags/{{market.Code.toLowerCase()}}.png" alt="{{market.Name}}" />
-                        <span class="caret"></span></a>
-                    <ul class="dropdown-menu" uib-dropdown-menu>
-                        <li ng-repeat="c in countries">
-                            <a href="#" ng-click="$parent.market = c">
-                                <img ng-src="/flags/{{c.Code.toLowerCase()}}.png" alt="{{c.Name}}" /> {{c.Code}}
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </nav>
+    <bop-finder-navbar></bop-finder-navbar>
     <div class="text-center">
         <div class="desc-row">
             <div class="row">
@@ -84,34 +63,14 @@
                 <div class="col-md-6 col-md-offset-3">
                     <table class="table table-striped track-table">
                         <tr ng-repeat="track in topTracks | orderBy:'-popularity'">
-                            <td>
-                                <div class="media">
-                                    <div class="media-left">
-                                        <div class="album" ng-style="{'background-image':'url({{track.album.images[2].url}})'}" ng-click="playAudio(track)" ng-mouseover="console.log('meow');">
-                                            <div class="buttons" style="display: block;">
-                                                <span class="glyphicon glyphicon-play" ng-hide="true"></span>
-                                                <span class="glyphicon glyphicon-pause" ng-show="!audio.paused && current_audio == track.id"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="media-body text-left">
-                                        <h4 class="media-heading"> <a ng-href="{{track.external_urls.spotify}}">{{track.name}}</a></h4>
-                                        <span class="album-title"><a ng-href="{{track.album.external_urls.spotify}}">{{track.album.name}}</a></span></div>
-                                </div>
+                            <td bop-finder-track ng-model="track">
+                            </td>
+                        </tr>
+                    </table>
                 </div>
-                </td>
-                </tr>
-                </table>
             </div>
         </div>
-    </div>
-    <div id="footer">
-        <div class="container">
-            <small>
-        <p>created by <a href="https://github.com/praisecatgod">yves st. germain</a></p>
-        <p> <a href="mailto:yv.desousa[at]gmail.com">Hire me?</a></p>
-      </small>
-        </div>
+        <bop-finder-footer></bop-finder-footer>
     </div>
 </body>
 

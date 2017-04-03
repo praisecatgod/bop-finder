@@ -1,5 +1,28 @@
 var bopFinder = angular.module('bopFinder', ['ngAnimate', 'ngSanitize', 'ui.bootstrap']);
 
+bopFinder
+    .directive('bopFinderTrack', function()
+    {
+        return {
+            templateUrl: 'track.html'
+        };
+    });
+
+bopFinder
+    .directive('bopFinderFooter', function()
+    {
+        return {
+            templateUrl: 'footer.html'
+        };
+    });
+
+bopFinder
+    .directive('bopFinderNavbar', function()
+    {
+        return {
+            templateUrl: 'navbar.html'
+        };
+    });
 
 bopFinder
     .controller('MainCtrl', [
@@ -88,6 +111,19 @@ bopFinder
                     $scope.current_audio = track.id;
                 }
 
+            };
+
+            $scope.selectCountry = function(country)
+            {
+                $scope.market = country;
+                $scope.searchSelected = '';
+                $scope.artist = '';
+                $scope.topTracks = [];
+                if($scope.audio.duration > 0 && !$scope.audio.paused){
+                    $scope.audio.pause();
+                }
+                $scope.audio = {};
+                $scope.current_audio = 0;
             };
 
             var getTrack = function(trackIDs)
