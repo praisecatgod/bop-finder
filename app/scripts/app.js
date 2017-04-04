@@ -62,6 +62,6 @@ angular
             });
 
         SpotifyProvider.setClientId('c8b41b06c1734f0987f8ee45de21ad32');
-        SpotifyProvider.setRedirectUri('/callback');
+        SpotifyProvider.setRedirectUri('views/callback.html');
         SpotifyProvider.setScope('user-read-private playlist-modify playlist-modify-private');
     });

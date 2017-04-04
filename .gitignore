@@ -3,6 +3,8 @@
 /.sass-cache
 /bower_components
 
+/old
+
 
 ### macOS ###
 *.DS_Store

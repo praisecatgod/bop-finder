@@ -3,6 +3,10 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 @import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
 // endbower
 
+
+$font-stack: 'Lato', sans-serif;
+$spotify-green: #1ED760;
+
 .nav,
 .pagination,
 .carousel,
@@ -18,17 +22,17 @@ a,
 a:visited,
 a.navbar-brand,
 a.navbar-brand:visited {
-    color: #1ED760;
+    color: $spotify-green;
 }
 
 a:hover,
 a.navbar-brand:hover {
-    color: #333;
+    color: $gray-dark;
 }
 
 a:active,
 a.navbar-brand:active {
-    color: #222;
+    color: $gray-darker;
 }
 
 span.glyphicon {
@@ -71,7 +75,7 @@ span.glyphicon-pause {
     width: 30px;
     height: 30px;
     margin: auto;
-    color: #1ED760;
+    color: $spotify-green;
 }
 
 .desc-row {
@@ -86,25 +90,24 @@ span.glyphicon-pause {
 }
 
 .btn-spotify {
-    background-color: #1ED760;
-    color: #eee;
+    background-color: $spotify-green;
+    color: $gray-lighter;
     border-radius: 500px;
-    font-variant: small-caps;
 }
 
 .media-heading a,
 .album-title a:active {
-    color: #222;
+    color: $gray-darker;
 }
 
 .media-heading a:hover,
 .album-title a:hover {
-    color: #1ED760;
+    color: $spotify-green;
 }
 
 .album-title a,
 .media-heading a:active {
-    color: #333;
+    color: $gray-dark;
 }
 
 .footer {
