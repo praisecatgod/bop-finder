@@ -108,14 +108,16 @@ span.glyphicon-pause {
 
 .navbar-brand {
     font-size: 25px;
-    @media screen and (max-width: $screen-sm-max) {
-        padding: 10px 15px 10px 15px;
-    }
 }
 
 .navbar-nav {
-    @media screen and (max-width: $screen-sm-max) {
+    @media screen and (max-width: $grid-float-breakpoint) {
         margin-top: 0;
         margin-bottom: 0;
+    }
+    li a{
+        @media screen and (max-width: $grid-float-breakpoint) {
+            padding-top: 5px;
+        }
     }
 }

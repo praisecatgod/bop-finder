@@ -8,46 +8,34 @@
  * Controller of the bopFinder
  */
 angular.module('bopFinder')
-    .controller('MainCtrl', function($scope, $http, $window, Spotify)
+    .controller('MainCtrl', function($scope, $http, $window, markets, Spotify)
     {
         /* jshint validthis: true */
-        //var vm = this;
+        var main = this;
 
-        $scope.countries = [];
+        main.searchSelected = '';
 
-       /* $http.get('countries.json').then(function(response)
-        {
-            $scope.countries = response.data;
-        });*/
+        main.search = {};
 
-        $scope.market = {
-            'Name': 'United States',
-            'Code': 'US'
-        };
+        main.artist = '';
 
-        $scope.searchSelected = '';
+        main.topTracks = [];
 
-        $scope.search = {};
-
-        $scope.artist = '';
-
-        $scope.topTracks = [];
-
-        $scope.audio = {};
-        $scope.current_audio = 0;
+        main.audio = {};
+        main.current_audio = 0;
 
         var user = '';
 
         var createPlaylist = function()
         {
-            var playlistName = '[BOP FINDER] ' + $scope.artist.name;
+            var playlistName = '[BOP FINDER] ' + main.artist.name;
             Spotify.createPlaylist(user.id,
             {
                 name: playlistName
             }).then(function(response)
             {
 
-                Spotify.addPlaylistTracks(user.id, response.data.id, $scope.topTracks.map(function(track)
+                Spotify.addPlaylistTracks(user.id, response.data.id, main.topTracks.map(function(track)
                 {
                     return track.id;
                 })).then(function(response)
@@ -61,7 +49,7 @@ angular.module('bopFinder')
         };
 
 
-        $scope.logIn = function()
+        main.logIn = function()
         {
             if (user === '' || user === null || user === undefined)
             {
@@ -93,53 +81,53 @@ angular.module('bopFinder')
         };
 
 
-        $scope.playAudio = function(track)
+        main.playAudio = function(track)
         {
-            if ($scope.audio.duration > 0 && !$scope.audio.paused && track.id === $scope.current_audio)
+            if (main.audio.duration > 0 && !main.audio.paused && track.id === main.current_audio)
             {
-                $scope.audio.pause();
+                main.audio.pause();
             }
-            else if ($scope.audio.duration > 0 && $scope.audio.paused && track.id === $scope.current_audio)
+            else if (main.audio.duration > 0 && main.audio.paused && track.id === main.current_audio)
             {
-                $scope.audio.play();
+                main.audio.play();
             }
-            else if ($scope.audio.duration > 0 && !$scope.audio.paused && track.id !== $scope.current_audio)
+            else if (main.audio.duration > 0 && !main.audio.paused && track.id !== main.current_audio)
             {
-                $scope.audio.pause();
-                $scope.audio = new Audio(track.preview_url);
-                $scope.audio.play();
-                $scope.current_audio = track.id;
+                main.audio.pause();
+                main.audio = new Audio(track.preview_url);
+                main.audio.play();
+                main.current_audio = track.id;
             }
             else
             {
-                $scope.audio = new Audio(track.preview_url);
-                $scope.audio.play();
-                $scope.current_audio = track.id;
+                main.audio = new Audio(track.preview_url);
+                main.audio.play();
+                main.current_audio = track.id;
             }
 
         };
 
-        $scope.selectCountry = function(country)
+        main.selectCountry = function(country)
         {
-            $scope.market = country;
-            $scope.searchSelected = '';
-            $scope.artist = '';
-            $scope.topTracks = [];
-            if ($scope.audio.duration > 0 && !$scope.audio.paused)
+            main.market = country;
+            main.searchSelected = '';
+            main.artist = '';
+            main.topTracks = [];
+            if (main.audio.duration > 0 && !main.audio.paused)
             {
-                $scope.audio.pause();
+                main.audio.pause();
             }
-            $scope.audio = {};
-            $scope.current_audio = 0;
+            main.audio = {};
+            main.current_audio = 0;
         };
 
 
-        $scope.getTracks = function(album)
+        main.getTracks = function(album)
         {
             var tracks = album.tracks.items.length > 50 ? 
                 album.tracks.items.splice(0, 50).map(function(track){return track.id;}) : 
                 album.tracks.items.map(function(track){return track.id;});
-            Spotify.getTracks(tracks, {country: $scope.market.Code}).then(function(response)
+            Spotify.getTracks(tracks, {country: markets.current.Code}).then(function(response)
             {
                 var track_list = response.data.tracks;
                 track_list.sort(function(a, b)
@@ -151,25 +139,25 @@ angular.module('bopFinder')
 
                 for (var i = 0; i < percentile; i++)
                 {
-                    $scope.topTracks.push(track_list[i]);
+                    main.topTracks.push(track_list[i]);
                 }
             });
 
         };
 
-        $scope.onSelect = function($item)
+        main.onSelect = function($item)
         {
-            $scope.artist = $item;
-            Spotify.getArtistAlbums($scope.artist.id,
+            main.artist = $item;
+            Spotify.getArtistAlbums(main.artist.id,
             {
                 album_type: 'album,single',
-                country: $scope.market.Code,
+                country: markets.current.Code,
                 limit: 20
             }).then(function(response)
             {
                 Spotify.getAlbums(response.data.items.map(function(track){return track.id;}),
                 {
-                    country: $scope.market.Code
+                    country: markets.current.Code
                 }).then(function(response)
                 {
                     var albums = response.data.albums;
@@ -236,12 +224,12 @@ angular.module('bopFinder')
                         }
                     }
                     var offset = 0;
-                    $scope.topTracks = [];
+                    main.topTracks = [];
                     for (var j = 0; j < albums.length; j++)
                     {
                         if ((albums[j].album_type === 'single' && albums[j].popularity > median) || (albums[j].album_type === 'album' && albums[j].popularity > q1))
                         {
-                            setTimeout($scope.getTracks(albums[j]), 1000 + offset);
+                            setTimeout(main.getTracks(albums[j]), 1000 + offset);
                             offset += 2000;
                         }
 
@@ -253,9 +241,9 @@ angular.module('bopFinder')
 
         };
 
-        $scope.getArtist = function(val)
+        main.getArtist = function(val)
         {
-            return Spotify.search(val.replace(' ', '+'), 'artist', {country: $scope.market.Code}).then(function(response){
+            return Spotify.search(val.replace(' ', '+'), 'artist', {country: markets.current.Code}).then(function(response){
                 return response.data.artists.items;
             });
 

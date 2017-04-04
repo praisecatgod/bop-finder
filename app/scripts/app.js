@@ -1,7 +1,8 @@
 'use strict';
 
 /**
- * @ngdoc overview
+ * @ngdoc ov
+erview
  * @name bopFinder
  * @description
  * # bopFinder
@@ -31,8 +32,25 @@ angular
     .directive('bopFinderNavbar', function()
     {
         return {
-            templateUrl: 'views/navbar.html'
+            templateUrl: 'views/navbar.html',
+            controller: 'NavCtrl',
+            controllerAs: 'nav'
         };
+    })
+    .service('markets', function Markets($http)
+    {
+        var markets = this;
+
+        markets.current = {
+            'name': 'united states',
+            'code': 'us'
+        };
+
+        $http.get('scripts/countries.json').then(function(response)
+        {
+            markets.countries = response.data;
+        });
+
     })
     .config(function($locationProvider, $routeProvider, SpotifyProvider)
     {

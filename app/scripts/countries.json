@@ -1,0 +1,248 @@
+[
+    {
+        "name": "andorra",
+        "code": "ad"
+    },
+    {
+        "name": "argentina",
+        "code": "ar"
+    },
+    {
+        "name": "australia",
+        "code": "au"
+    },
+    {
+        "name": "austria",
+        "code": "at"
+    },
+    {
+        "name": "belgium",
+        "code": "be"
+    },
+    {
+        "name": "bolivia",
+        "code": "bo"
+    },
+    {
+        "name": "brazil",
+        "code": "br"
+    },
+    {
+        "name": "bulgaria",
+        "code": "bg"
+    },
+    {
+        "name": "canada",
+        "code": "ca"
+    },
+    {
+        "name": "chile",
+        "code": "cl"
+    },
+    {
+        "name": "colombia",
+        "code": "co"
+    },
+    {
+        "name": "costa rica",
+        "code": "cr"
+    },
+    {
+        "name": "cyprus",
+        "code": "cy"
+    },
+    {
+        "name": "czech republic",
+        "code": "cz"
+    },
+    {
+        "name": "denmark",
+        "code": "dk"
+    },
+    {
+        "name": "dominican republic",
+        "code": "do"
+    },
+    {
+        "name": "ecuador",
+        "code": "ec"
+    },
+    {
+        "name": "el salvador",
+        "code": "sv"
+    },
+    {
+        "name": "estonia",
+        "code": "ee"
+    },
+    {
+        "name": "finland",
+        "code": "fi"
+    },
+    {
+        "name": "france",
+        "code": "fr"
+    },
+    {
+        "name": "germany",
+        "code": "de"
+    },
+    {
+        "name": "greece",
+        "code": "gr"
+    },
+    {
+        "name": "guatemala",
+        "code": "gt"
+    },
+    {
+        "name": "haiti",
+        "code": "ht"
+    },
+    {
+        "name": "honduras",
+        "code": "hn"
+    },
+    {
+        "name": "hong kong",
+        "code": "hk"
+    },
+    {
+        "name": "hungary",
+        "code": "hu"
+    },
+    {
+        "name": "iceland",
+        "code": "is"
+    },
+    {
+        "name": "indonesia",
+        "code": "id"
+    },
+    {
+        "name": "ireland",
+        "code": "ie"
+    },
+    {
+        "name": "italy",
+        "code": "it"
+    },
+    {
+        "name": "japan",
+        "code": "jp"
+    },
+    {
+        "name": "latvia",
+        "code": "lv"
+    },
+    {
+        "name": "liechtenstein",
+        "code": "li"
+    },
+    {
+        "name": "lithuania",
+        "code": "lt"
+    },
+    {
+        "name": "luxembourg",
+        "code": "lu"
+    },
+    {
+        "name": "malaysia",
+        "code": "my"
+    },
+    {
+        "name": "malta",
+        "code": "mt"
+    },
+    {
+        "name": "mexico",
+        "code": "mx"
+    },
+    {
+        "name": "monaco",
+        "code": "mc"
+    },
+    {
+        "name": "netherlands",
+        "code": "nl"
+    },
+    {
+        "name": "new zealand",
+        "code": "nz"
+    },
+    {
+        "name": "nicaragua",
+        "code": "ni"
+    },
+    {
+        "name": "norway",
+        "code": "no"
+    },
+    {
+        "name": "panama",
+        "code": "pa"
+    },
+    {
+        "name": "paraguay",
+        "code": "py"
+    },
+    {
+        "name": "peru",
+        "code": "pe"
+    },
+    {
+        "name": "philippines",
+        "code": "ph"
+    },
+    {
+        "name": "poland",
+        "code": "pl"
+    },
+    {
+        "name": "portugal",
+        "code": "pt"
+    },
+    {
+        "name": "singapore",
+        "code": "sg"
+    },
+    {
+        "name": "slovakia",
+        "code": "sk"
+    },
+    {
+        "name": "spain",
+        "code": "es"
+    },
+
+    {
+        "name": "sweden",
+        "code": "se"
+    },
+    {
+        "name": "switzerland",
+        "code": "ch"
+    },
+    {
+        "name": "taiwan, province of china",
+        "code": "tw"
+    },
+    {
+        "name": "turkey",
+        "code": "tr"
+    },
+    {
+        "name": "united kingdom",
+        "code": "gb"
+    },
+    {
+        "name": "united states",
+        "code": "us"
+    },
+    {
+        "name": "uruguay",
+        "code": "uy"
+    }
+
+]
