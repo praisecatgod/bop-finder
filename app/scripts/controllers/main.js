@@ -15,10 +15,10 @@ angular.module('bopFinder')
 
         $scope.countries = [];
 
-        $http.get('countries.json').then(function(response)
+       /* $http.get('countries.json').then(function(response)
         {
             $scope.countries = response.data;
-        });
+        });*/
 
         $scope.market = {
             'Name': 'United States',
@@ -95,11 +95,7 @@ angular.module('bopFinder')
 
         $scope.playAudio = function(track)
         {
-            if (!track.is_playable)
-            {
-                return;
-            }
-            else if ($scope.audio.duration > 0 && !$scope.audio.paused && track.id === $scope.current_audio)
+            if ($scope.audio.duration > 0 && !$scope.audio.paused && track.id === $scope.current_audio)
             {
                 $scope.audio.pause();
             }
@@ -137,35 +133,25 @@ angular.module('bopFinder')
             $scope.current_audio = 0;
         };
 
-        var getTrack = function(trackIDs)
-        {
-            return $http.get('https://api.spotify.com/v1/tracks?ids=' + trackIDs + '&market=' + $scope.market.Code).then(function(response)
-            {
-                return response.data.tracks;
-            });
-        };
 
         $scope.getTracks = function(album)
         {
-            var tracks = album.tracks.items;
-            Promise.resolve(
-                getTrack(tracks.map(function(track)
-                {
-                    return track.id;
-                }).join())
-            ).then(function(track_list)
+            var tracks = album.tracks.items.length > 50 ? 
+                album.tracks.items.splice(0, 50).map(function(track){return track.id;}) : 
+                album.tracks.items.map(function(track){return track.id;});
+            Spotify.getTracks(tracks, {country: $scope.market.Code}).then(function(response)
             {
+                var track_list = response.data.tracks;
                 track_list.sort(function(a, b)
                 {
                     return b.popularity - a.popularity;
                 });
 
-                var percentile = Math.ceil(track_list.length * 0.15);
+                var percentile = Math.ceil(album.tracks.items.length * 0.15);
 
                 for (var i = 0; i < percentile; i++)
                 {
                     $scope.topTracks.push(track_list[i]);
-                    $scope.$apply();
                 }
             });
 
@@ -269,8 +255,7 @@ angular.module('bopFinder')
 
         $scope.getArtist = function(val)
         {
-            return $http.get('https://api.spotify.com/v1/search?q=' + val.replace(' ', '+') + '&type=artist&market=' + $scope.market.Code).then(function(response)
-            {
+            return Spotify.search(val.replace(' ', '+'), 'artist', {country: $scope.market.Code}).then(function(response){
                 return response.data.artists.items;
             });
 
