@@ -2,11 +2,10 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 // bower:scss
 @import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
 // endbower
-
-
-$font-stack: 'Lato', sans-serif;
+$font-stack: 'Lato',
+sans-serif;
 $spotify-green: #1ED760;
-
+$spotify-green-lighter: rgba(30, 215, 96, 0.3);
 .nav,
 .pagination,
 .carousel,
@@ -15,23 +14,29 @@ $spotify-green: #1ED760;
 }
 
 body {
-    font-family: 'Lato', sans-serif;
+    font-family: $font-stack;
 }
 
 a,
 a:visited,
 a.navbar-brand,
-a.navbar-brand:visited {
+a.navbar-brand:visited,
+.media-heading a:hover,
+.album-title a:hover {
     color: $spotify-green;
 }
 
 a:hover,
-a.navbar-brand:hover {
+a.navbar-brand:hover,
+.album-title a,
+.media-heading a:active {
     color: $gray-dark;
 }
 
 a:active,
-a.navbar-brand:active {
+a.navbar-brand:active,
+.media-heading a,
+.album-title a:active {
     color: $gray-darker;
 }
 
@@ -79,7 +84,7 @@ span.glyphicon-pause {
 }
 
 .desc-row {
-    background-color: rgba(30, 215, 96, 0.3);
+    background-color: $spotify-green-lighter;
     width: 100%;
     margin-top: -52px;
     padding-top: 50px;
@@ -91,23 +96,8 @@ span.glyphicon-pause {
 
 .btn-spotify {
     background-color: $spotify-green;
-    color: $gray-lighter;
+    color: #fff;
     border-radius: 500px;
-}
-
-.media-heading a,
-.album-title a:active {
-    color: $gray-darker;
-}
-
-.media-heading a:hover,
-.album-title a:hover {
-    color: $spotify-green;
-}
-
-.album-title a,
-.media-heading a:active {
-    color: $gray-dark;
 }
 
 .footer {
