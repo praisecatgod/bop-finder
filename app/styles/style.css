@@ -1,0 +1,107 @@
+.nav,
+.pagination,
+.carousel,
+.panel-title a {
+    cursor: pointer;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+}
+
+a,
+a:visited,
+a.navbar-brand,
+a.navbar-brand:visited {
+    color: #1ED760;
+}
+
+a:hover,
+a.navbar-brand:hover {
+    color: #333;
+}
+
+a:active,
+a.navbar-brand:active {
+    color: #222;
+}
+
+span.glyphicon {
+    font-size: 1.2em;
+    margin-top: 6px;
+}
+
+.artist-photo {
+    max-width: 40%;
+}
+
+.typeahead-input .dropdown-menu {
+    font-size: 18px;
+    width: 100%;
+}
+
+.app-desc h1 {
+    font-size: 45px;
+}
+
+.app-desc {
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.track-table {
+    margin-top: 10%;
+    margin-bottom: 10%;
+}
+
+.album {
+    width: 64px;
+    height: 64px;
+}
+
+span.glyphicon-play,
+span.glyphicon-pause {
+    padding: 15px 0;
+    font-size: 30px;
+    width: 30px;
+    height: 30px;
+    margin: auto;
+    color: #1ED760;
+}
+
+.desc-row {
+    background-color: rgba(30, 215, 96, 0.3);
+    width: 100%;
+    margin-top: -52px;
+    padding-top: 50px;
+}
+
+.row {
+    margin-bottom: 5px;
+}
+
+.btn-spotify {
+    background-color: #1ED760;
+    color: #eee;
+}
+
+.media-heading a,
+.album-title a:active {
+    color: #222;
+}
+
+.media-heading a:hover,
+.album-title a:hover {
+    color: #1ED760;
+}
+
+.album-title a,
+.media-heading a:active {
+    color: #333;
+}
+
+.footer {
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}

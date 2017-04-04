@@ -1,0 +1,22 @@
+<nav class="navbar navbar-inverse">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="text-uppercase navbar-brand" href="/">Bop Finder</a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="/about">About</a></li>
+            <li class="dropdown" uib-dropdown on-toggle="toggled(open)">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" uib-dropdown-toggle>
+                    <img ng-src="/flags/{{market.Code.toLowerCase()}}.png" alt="{{market.Name}}" />
+                    <span class="caret"></span></a>
+                <ul class="dropdown-menu" uib-dropdown-menu>
+                    <li ng-repeat="c in countries">
+                        <a href="#" ng-click="selectCountry(c)">
+                            <img ng-src="/flags/{{c.Code.toLowerCase()}}.png" alt="{{c.Name}}" /> {{c.Code}}
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>

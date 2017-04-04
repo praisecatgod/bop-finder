@@ -1,20 +1,28 @@
 {
-  "name": "bop-finder",
-  "authors": [
-    "yves <yv.desousa@gmail.com>"
-  ],
-  "description": "fdsf",
-  "main": "",
-  "license": "MIT",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "public/bower_components",
-    "test",
-    "tests"
-  ],
+  "name": "yeo-test",
+  "version": "0.0.0",
   "dependencies": {
-    "angular-spotify": "^1.4.3"
+    "angular": "^1.4.0",
+    "bootstrap-sass-official": "^3.2.0",
+    "angular-animate": "^1.4.0",
+    "angular-route": "^1.4.0",
+    "angular-spotify": "^1.4.3",
+    "angular-sanitize": "^1.6.4",
+    "angular-bootstrap": "^2.5.0",
+    "jquery": "^3.2.1"
+  },
+  "devDependencies": {
+    "angular-mocks": "^1.4.0"
+  },
+  "appPath": "app",
+  "moduleName": "bopFinder",
+  "overrides": {
+    "bootstrap": {
+      "main": [
+        "less/bootstrap.less",
+        "dist/css/bootstrap.css",
+        "dist/js/bootstrap.js"
+      ]
+    }
   }
 }
