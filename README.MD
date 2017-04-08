@@ -5,9 +5,8 @@ Go beyond the top tracks, and get all the best hits from your next favorite arti
 ## TODO
 
 1. OAuth redirect issues
-2. Navbar resizing
-3. Flags
-4. Refactor
-5. Sass 
-6. Footer
-7. Domain?
+2. Refactor API requests into service
+3. Refactor album sorting into service
+4. Create stat service
+5. Refactor audio playback into service
+6. UIUX tweaks

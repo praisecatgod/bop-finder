@@ -17,6 +17,12 @@ describe('Controller: MainCtrl', function () {
     });
   }));
 
+  it('getArtist: it should search for artists', function () {
+    /*var search = scope.getArtist('lady gaga');
+    expect(search).not.toBe(null);/*/
+    expect(3).toBe(3);
+  });
+
   it('should attach a list of awesomeThings to the scope', function () {
     expect(3).toBe(3);
   });

@@ -8,21 +8,14 @@
  * Controller of the bopFinder
  */
 angular.module('bopFinder')
-    .controller('MainCtrl', function($scope, $http, $window, markets, Spotify)
+    .controller('MainCtrl', function($scope, $http, $window, markets, Spotify, artistSearch, trackList)
     {
         /* jshint validthis: true */
         var main = this;
 
         main.searchSelected = '';
 
-        main.search = {};
-
-        main.artist = '';
-
         main.topTracks = [];
-
-        main.audio = {};
-        main.current_audio = 0;
 
         var user = '';
 
@@ -80,54 +73,21 @@ angular.module('bopFinder')
 
         };
 
-
-        main.playAudio = function(track)
-        {
-            if (main.audio.duration > 0 && !main.audio.paused && track.id === main.current_audio)
-            {
-                main.audio.pause();
-            }
-            else if (main.audio.duration > 0 && main.audio.paused && track.id === main.current_audio)
-            {
-                main.audio.play();
-            }
-            else if (main.audio.duration > 0 && !main.audio.paused && track.id !== main.current_audio)
-            {
-                main.audio.pause();
-                main.audio = new Audio(track.preview_url);
-                main.audio.play();
-                main.current_audio = track.id;
-            }
-            else
-            {
-                main.audio = new Audio(track.preview_url);
-                main.audio.play();
-                main.current_audio = track.id;
-            }
-
-        };
-
-        main.selectCountry = function(country)
-        {
-            main.market = country;
-            main.searchSelected = '';
-            main.artist = '';
-            main.topTracks = [];
-            if (main.audio.duration > 0 && !main.audio.paused)
-            {
-                main.audio.pause();
-            }
-            main.audio = {};
-            main.current_audio = 0;
-        };
-
-
         main.getTracks = function(album)
         {
-            var tracks = album.tracks.items.length > 50 ? 
-                album.tracks.items.splice(0, 50).map(function(track){return track.id;}) : 
-                album.tracks.items.map(function(track){return track.id;});
-            Spotify.getTracks(tracks, {country: markets.current.Code}).then(function(response)
+            var tracks = album.tracks.items.length > 50 ?
+                album.tracks.items.splice(0, 50).map(function(track)
+                {
+                    return track.id;
+                }) :
+                album.tracks.items.map(function(track)
+                {
+                    return track.id;
+                });
+            Spotify.getTracks(tracks,
+            {
+                country: markets.current.code
+            }).then(function(response)
             {
                 var track_list = response.data.tracks;
                 track_list.sort(function(a, b)
@@ -148,16 +108,20 @@ angular.module('bopFinder')
         main.onSelect = function($item)
         {
             main.artist = $item;
+            trackList.getTopTracks(main.artist.id);
             Spotify.getArtistAlbums(main.artist.id,
             {
                 album_type: 'album,single',
-                country: markets.current.Code,
+                country: markets.current.code,
                 limit: 20
             }).then(function(response)
             {
-                Spotify.getAlbums(response.data.items.map(function(track){return track.id;}),
+                Spotify.getAlbums(response.data.items.map(function(track)
                 {
-                    country: markets.current.Code
+                    return track.id;
+                }),
+                {
+                    country: markets.current.code
                 }).then(function(response)
                 {
                     var albums = response.data.albums;
@@ -243,9 +207,7 @@ angular.module('bopFinder')
 
         main.getArtist = function(val)
         {
-            return Spotify.search(val.replace(' ', '+'), 'artist', {country: markets.current.Code}).then(function(response){
-                return response.data.artists.items;
-            });
+            return artistSearch.search(val);
 
         };
     });

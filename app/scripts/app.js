@@ -17,41 +17,6 @@ angular
         'ui.bootstrap',
         'spotify'
     ])
-    .directive('bopFinderTrack', function()
-    {
-        return {
-            templateUrl: 'views/track.html'
-        };
-    })
-    .directive('bopFinderFooter', function()
-    {
-        return {
-            templateUrl: 'views/footer.html'
-        };
-    })
-    .directive('bopFinderNavbar', function()
-    {
-        return {
-            templateUrl: 'views/navbar.html',
-            controller: 'NavCtrl',
-            controllerAs: 'nav'
-        };
-    })
-    .service('markets', function Markets($http)
-    {
-        var markets = this;
-
-        markets.current = {
-            'name': 'united states',
-            'code': 'us'
-        };
-
-        $http.get('scripts/countries.json').then(function(response)
-        {
-            markets.countries = response.data;
-        });
-
-    })
     .config(function($locationProvider, $routeProvider, SpotifyProvider)
     {
         $locationProvider.hashPrefix('');
@@ -69,10 +34,6 @@ angular
                 templateUrl: 'views/about.html',
                 controller: 'AboutCtrl',
                 controllerAs: 'about'
-            })
-            .when('/callback',
-            {
-                templateUrl: 'views/callback.html'
             })
             .otherwise(
             {

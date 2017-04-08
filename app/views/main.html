@@ -9,7 +9,7 @@
                     <form class="form-horizontal">
                         <div class="col-md-6 col-md-offset-3">
                             <div class="form-group form-group-lg has-feedback typeahead-input">
-                                <input type="text" class="form-control input-lg" placeholder="Type artist name here..." ng-model="searchSelected" uib-typeahead="artist.name for artist in main.getArtist($viewValue)" typeahead-on-select="main.onSelect($item)" typeahead-wait-ms="1000" typeahead-loading="loadingLocations" typeahead-no-results="noResults">
+                                <input type="text" class="form-control input-lg" placeholder="Type artist name here..." ng-model="main.searchSelected" uib-typeahead="artist.name for artist in main.getArtist($viewValue)" typeahead-on-select="main.onSelect($item)" typeahead-wait-ms="1000" typeahead-loading="loadingLocations" typeahead-no-results="noResults">
                                 <span class="glyphicon glyphicon-refresh form-control-feedback" aria-hidden="true" ng-show="loadingLocations"></span>
                                 <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" ng-show="noResults"></span>
                             </div>
